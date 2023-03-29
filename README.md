@@ -19,14 +19,16 @@ The goal of this utility is NOT to be able to retreive old copies of files
 that may have become inaccessible or corrupted.
 
 # USAGE
-backup-util -f <DIR> -t <DIR> [-v]
-  
+<pre>
+backup-util -f &lt;DIR&gt; -t &lt;DIR&gt; [-v]
   -f DIR  --from=DIR  location of original data
-  
   -t DIR  --to=DIR    location to store backup data
-  
   -v      --verbose   chatty output on stderr
-  
           --FORCE     force backup despite possible trouble
-  
   -d      --dry-run   dry run of backup
+</pre>
+
+# NOTES
+Use of the -d (dry-run) flag will execute the backup without making any changes
+to your directory structure.  It is recommended to use this flag before executing 
+a backup and closely examining the results to avoid data loss.
