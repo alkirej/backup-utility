@@ -18,7 +18,7 @@ determined by the modified date and file size.)
 The goal of this utility is NOT to be able to retreive old copies of files
 that may have become inaccessible or corrupted.
 
-# USAGE
+# COMMAND LINE USAGE
 <pre>
 backup-util -f &lt;DIR&gt; -t &lt;DIR&gt; [-v]
   -f DIR  --from=DIR  location of original data
@@ -32,3 +32,14 @@ backup-util -f &lt;DIR&gt; -t &lt;DIR&gt; [-v]
 Use of the -d (dry-run) flag will execute the backup without making any changes
 to your directory structure.  It is recommended to use this flag before executing 
 a backup and closely examining the results to avoid data loss.
+
+This utility was developed and tested using Ubuntu Linux.
+
+The utility was developed in Haskell.
+
+# BUILD
+If you have a properly setup Haskell development environment including cabal, you can build
+this program simply by executing:
+<pre>cabal build</pre>
+
+The utility will be found within the **dist-newstyle** directory tree.
