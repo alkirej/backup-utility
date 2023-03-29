@@ -1,0 +1,29 @@
+cabal-version:       >=1.10
+
+name:                  backup-util
+version:               1.0.0.0
+-- synopsis:
+-- description:
+-- bug-reports:
+license:               AllRightsReserved
+-- license-file:        LICENSE
+author:                Jeff Alkire
+maintainer:            jeff@alkire.net
+-- copyright:
+-- category:
+build-type:            Simple
+extra-source-files:    CHANGELOG.md
+
+executable             backup-util 
+  main-is:             Main.hs
+  other-modules:       CommandLine.CommandLine
+                       DirProcessing.DirProcessing
+                       Logging.Logging
+
+  -- other-extensions:
+  build-depends:       base      >= 4.13.0.0 && < 5,
+                       directory >= 1.3.6.0  && < 2,
+                       time      >= 1.9.3    && < 2
+
+  -- hs-source-dirs:
+  default-language:    Haskell2010
