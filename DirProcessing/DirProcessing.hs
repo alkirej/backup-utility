@@ -123,11 +123,11 @@ backupDir' from to verbose dryRun = do
                  else
                     Dir.listDirectory to
     -- was in to dir but not if from, it has been deleted.
-    let delFiles = [ f | f <- toFiles, not $ f `elem` fromFiles  ]
+    let delFiles = Lst.sort [ f | f <- toFiles, not $ f `elem` fromFiles  ]
     -- was in from dir, but not to dir, it was added.
-        newFiles = [ f | f <- fromFiles, not $ f `elem` toFiles  ]
+        newFiles = Lst.sort [ f | f <- fromFiles, not $ f `elem` toFiles  ]
     -- in both dirs, just verify it hasn't changed.
-        oldFiles = [ f | f <- fromFiles, f `elem` toFiles  ]
+        oldFiles = Lst.sort [ f | f <- fromFiles, f `elem` toFiles  ]
 
     removeFiles       to delFiles dryRun
     addFiles     from to newFiles verbose dryRun
