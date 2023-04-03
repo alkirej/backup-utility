@@ -121,7 +121,7 @@ backupDir' from to verbose dryRun = do
     toFiles   <- if (not doesToDirExist) && dryRun then
                     return []
                  else
-                    Dir.listDirectory to
+                    Lst.sort Dir.listDirectory to
     -- was in to dir but not if from, it has been deleted.
     let delFiles = Lst.sort [ f | f <- toFiles, not $ f `elem` fromFiles  ]
     -- was in from dir, but not to dir, it was added.
