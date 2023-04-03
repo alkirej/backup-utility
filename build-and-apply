@@ -1,0 +1,5 @@
+#/bin/bash -x
+
+cabal build
+cp dist-newstyle/build/x86_64-linux/ghc-8.8.4/backup-util-1.0.0.0/x/backup-util/build/backup-util/backup-util /home/jeff/bin
+
