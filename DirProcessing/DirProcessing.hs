@@ -117,7 +117,7 @@ backupDir' from to verbose dryRun = do
     Log.logEvent $ "*** Backup directory " ++ from ++ " ***"
 
     doesToDirExist <- Dir.doesPathExist to
-    fromFiles <- Dir.listDirectory from
+    fromFiles <- Lst.sort Dir.listDirectory from
     toFiles   <- if (not doesToDirExist) && dryRun then
                     return []
                  else
@@ -142,8 +142,8 @@ backupDir' from to verbose dryRun = do
 --      if there may be a problem, return false.
 checkRootBackupDir :: FilePath -> FilePath -> IO Bool
 checkRootBackupDir from to = do
-    fromFiles <- Dir.listDirectory from
-    toFiles   <- Dir.listDirectory to
+    fromFiles <- Lst.sort Dir.listDirectory from
+    toFiles   <- Lst.sort Dir.listDirectory to
 
     let delFiles = length [ f | f <- toFiles, not $ f `elem` fromFiles  ]
     -- was in from dir, but not to dir, it was added.
