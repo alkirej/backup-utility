@@ -28,7 +28,7 @@ main = do
         let (from,to,verbose,dryRun,force) = results'
 
         -- protect nfs dirs
-        if nfsDir to then do
+        if (nfsDir to) && (not force) then do
             Cl.handleErrors [ "CANNOT BACKUP TO NFS DIRECTORY! "
                                 ++ "This could do BAD, VERY BAD things!\n"
                             ]
