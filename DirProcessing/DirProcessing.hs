@@ -152,7 +152,7 @@ checkRootBackupDir from to = do
         oldFiles = length [ f | f <- fromFiles, f `elem` toFiles  ]
 
     -- If we are going to delete files, but don't have enough old files,
-    --      we could accidently be backuping up incorrectly and could
+    --      we could accidentally be backing up up incorrectly and could
     --      end up deleting important files.
         troubleBrewing = (delFiles > 0)  &&  (oldFiles < 5)
     if troubleBrewing then do
