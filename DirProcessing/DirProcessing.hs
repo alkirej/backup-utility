@@ -117,17 +117,21 @@ backupDir' from to verbose dryRun = do
     Log.logEvent $ "*** Backup directory " ++ from ++ " ***"
 
     doesToDirExist <- Dir.doesPathExist to
-    fromFiles <- Lst.sort Dir.listDirectory from
+    fromFiles <- Dir.listDirectory from
+    let fromFiles' = Lst.sort fromFiles
+
     toFiles   <- if (not doesToDirExist) && dryRun then
                     return []
                  else
-                    Lst.sort Dir.listDirectory to
+                    Dir.listDirectory to
+    let toFiles' = Lst.sort toFiles
+
     -- was in to dir but not if from, it has been deleted.
-    let delFiles = Lst.sort [ f | f <- toFiles, not $ f `elem` fromFiles  ]
+    let delFiles = Lst.sort [ f | f <- toFiles', not $ f `elem` fromFiles'  ]
     -- was in from dir, but not to dir, it was added.
-        newFiles = Lst.sort [ f | f <- fromFiles, not $ f `elem` toFiles  ]
+        newFiles = Lst.sort [ f | f <- fromFiles', not $ f `elem` toFiles'  ]
     -- in both dirs, just verify it hasn't changed.
-        oldFiles = Lst.sort [ f | f <- fromFiles, f `elem` toFiles  ]
+        oldFiles = Lst.sort [ f | f <- fromFiles', f `elem` toFiles'  ]
 
     removeFiles       to delFiles dryRun
     addFiles     from to newFiles verbose dryRun
@@ -142,14 +146,17 @@ backupDir' from to verbose dryRun = do
 --      if there may be a problem, return false.
 checkRootBackupDir :: FilePath -> FilePath -> IO Bool
 checkRootBackupDir from to = do
-    fromFiles <- Lst.sort Dir.listDirectory from
-    toFiles   <- Lst.sort Dir.listDirectory to
+    fromFiles <- Dir.listDirectory from
+    let fromFiles' = Lst.sort fromFiles
 
-    let delFiles = length [ f | f <- toFiles, not $ f `elem` fromFiles  ]
+    toFiles   <- Dir.listDirectory to
+    let toFiles' = Lst.sort toFiles
+
+    let delFiles = length [ f | f <- toFiles', not $ f `elem` fromFiles'  ]
     -- was in from dir, but not to dir, it was added.
-        newFiles = length [ f | f <- fromFiles, not $ f `elem` toFiles  ]
+        newFiles = length [ f | f <- fromFiles', not $ f `elem` toFiles'  ]
     -- in both dirs, just verify it hasn't changed.
-        oldFiles = length [ f | f <- fromFiles, f `elem` toFiles  ]
+        oldFiles = length [ f | f <- fromFiles', f `elem` toFiles'  ]
 
     -- If we are going to delete files, but don't have enough old files,
     --      we could accidentally be backing up up incorrectly and could
